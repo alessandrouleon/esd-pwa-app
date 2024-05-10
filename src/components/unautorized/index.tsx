@@ -1,6 +1,7 @@
 import { Container, Typography, Box } from '@mui/material';
 
 import imageErrorUnauthorized from '../../assets/employees/unautorized.jpg';
+import { COLORS } from '../../styles/theme/colors';
 
 export function Unauthorized() {
   return (
@@ -21,15 +22,15 @@ export function Unauthorized() {
         <Typography
           variant="h1"
           fontWeight={700}
-          color="var(--primary-600)"
-          fontSize={97}
+          color={COLORS.SECONDARY_400}
+          fontSize={70}
         >
           ERROR 401
         </Typography>
         <Typography
           variant="subtitle1"
           fontWeight={400}
-          color="var(--neutral-500)"
+          color={COLORS.NEUTRAL_500}
           fontSize={32}
         >
           Você não tem permissão para acessar esta página
