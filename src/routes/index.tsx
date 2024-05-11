@@ -1,4 +1,4 @@
-import {  Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "../pages/login";
 import { Unauthorized } from "../components/unautorized";
 import { UserTokenHelper } from "../services/history/history";
@@ -7,28 +7,13 @@ import { Home } from "../pages/home";
 export function AppRoutes() {
     const registration = UserTokenHelper.getLocalStorageRegistration();
     const isAuthenticated = registration !== null;
-    const isSpecialUser = registration === "";
 
     return (
         <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="/home"
+             <Route path="/home"
                 element={isAuthenticated ? <Home /> : <Navigate to="/" />}
-            /> */}
-
-<Route
-                path="/home"
-                element={
-                    isSpecialUser ? (
-                        <Home />
-                    ) : isAuthenticated ? (
-                        <Home />
-                    ) : (
-                        <Navigate to="/" />
-                    )
-                }
-            />
-
+            /> 
             <Route path="*" element={<Unauthorized />} />
         </Routes>
     );
