@@ -18,6 +18,11 @@ export const StylesName = styled.text`
   padding: 0.5rem;
 `;
 
+export const StylesNameDescription = styled.text`
+  margin-left: 0.5rem;
+  font-weight: normal;
+`;
+
 export const Occupation = styled.text`
   display: flex;
   justify-content: center;
@@ -28,8 +33,8 @@ export const Occupation = styled.text`
 `;
 
 export const OccupationDescription = styled.text`
-margin-left: 0.5rem;
-font-weight: normal;
+  margin-left: 0.5rem;
+  font-weight: normal;
 `;
 
 export const Registration = styled.text`
@@ -39,20 +44,50 @@ export const Registration = styled.text`
   font-weight: 800;
   color: ${COLORS.NEUTRAL_800};
   padding: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.8rem;
 `;
 
 export const StyleRegistration = styled.text`
-margin-left: 0.5rem;
-font-weight: normal;
+  margin-left: 0.5rem;
+  font-weight: normal;
 `;
 
 export const MediaQuery = styled.div`
+  @media screen and (max-width: 768px) {
+    margin-bottom: 0.8rem;
+    .card {
+      display: grid;
+      flex: 1;
+      grid-template-columns: 10rem 1fr;
+      grid-row-gap: 1em;
+      margin-right: 0;
+    }
 
-@media screen and (max-width: 768px) {
-   
-      margin-bottom: 0.8rem;
-    
+    .contentImage {
+      width: 10rem;
+      height: 10rem;
+    }
+
+    .image {
+      flex: 1;
+      height: 7rem;
+      align-self: center;
+      margin-bottom: 2rem;
+    }
+
+    .contentLegend {
+      width:100%;
+      height: 10rem;
+      display: flex;
+      padding-top: 1.5rem;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .stylesName {
+      flex: 1;
+      margin-left: 0;
+    }
   }
-
 `;

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { Image, OccupationDescription, Occupation, StylesName, Registration, StyleRegistration, MediaQuery } from './styles';
+import ContentImage from '@mui/material/CardContent';
+import { Image, OccupationDescription, Occupation, StylesName, Registration, StyleRegistration, MediaQuery, StylesNameDescription } from './styles';
 import { COLORS } from '../../styles/theme/colors';
 
 interface EmployeeProps {
@@ -12,44 +12,52 @@ interface EmployeeProps {
 
 }
 
-export function EmployeeCard({imageSrc, name, occupation, registration }: EmployeeProps) {
+export function EmployeeCard({ imageSrc, name, occupation, registration }: EmployeeProps) {
+   
+   const schreanCurrent = screen.width;
     return (
         <MediaQuery>
-        <Box>
-            <Card sx={{
-                minWidth: 150,
-                minHeight: 395,
-                backgroundColor: `${COLORS.NEUTRAL_200}`,
-                borderRadius: 2,
-                mr: 1.3,
-            }}
-            >
-                <CardContent
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center'
-                    }}
+            <Box>
+                <Card sx={{
+                    minWidth: 150,
+                    // maxHeight: 395,
+                    backgroundColor: `${COLORS.NEUTRAL_200}`,
+                    borderRadius: 2,
+                    mr: 1.3,
+                }}
+                className="card"
                 >
-                    <Image
-                        src={imageSrc}
-                        alt='Employee image'
-                    />
-                </CardContent>
+                    <ContentImage
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}
+                         className="contentImage"
+                    >
+                        <Image
+                            src={imageSrc}
+                            alt='Employee image'
+                            className="image"
+                        />
+                    </ContentImage>
+                    <div className="contentLegend">
+                        <StylesName className="stylesName">
+                       {schreanCurrent <= 768 && (<div> Nome:</div>)}
+                           <StylesNameDescription>{name}</StylesNameDescription> 
+                            </StylesName>
 
-                <StylesName>{name}</StylesName>
+                        <Occupation className="stylesName">
+                            Ocupação:
+                            <OccupationDescription>{occupation}</OccupationDescription>
+                        </Occupation>
 
-                <Occupation>
-                    Ocupação:
-                    <OccupationDescription>{occupation}</OccupationDescription>
-                </Occupation>
-
-                <Registration>
-                    Matrícula:
-                    <StyleRegistration>{registration}</StyleRegistration>
-                </Registration>
-
-            </Card>
-        </Box>
+                        <Registration className="stylesName">
+                            Matrícula:
+                            <StyleRegistration>{registration}</StyleRegistration>
+                        </Registration>
+                    </div>
+                </Card>
+            </Box>
         </MediaQuery>
     );
 }
