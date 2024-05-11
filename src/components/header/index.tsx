@@ -7,7 +7,7 @@ export function Header({ arrowIcon, company, systemName, icon }: HeaderProps) {
 
   const location = useLocation();
 
-  const isDashboardRoute = location.pathname
+  const isHomeRoute = location.pathname
     .toLowerCase()
     .includes('/home');
 
@@ -25,11 +25,10 @@ export function Header({ arrowIcon, company, systemName, icon }: HeaderProps) {
               alignItems="center"
               className="classSystemName"
             >
-              {isDashboardRoute &&
+              {isHomeRoute &&
                 <ButtonArrowBack>{arrowIcon}</ButtonArrowBack>
               }
-              {widthScreen > 768 && <span>{company}</span> }
-             
+              {widthScreen > 767 && <span>{company}</span> }
             </Typography>
             <Typography
               variant="h4"

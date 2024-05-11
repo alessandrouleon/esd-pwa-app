@@ -51,7 +51,6 @@ export const CardWrapper = styled.div`
 
 export const MediaQuery = styled.div`
   @media screen and (max-width: 768px) {
-
     .contentBodyGrid {
       display: grid;
       grid-template-columns: 1fr;
@@ -64,10 +63,19 @@ export const MediaQuery = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      max-width: 768px;
       height: calc(100vh - 72.02px);
       filter: brightness(95%);
       background-color: ${COLORS.NEUTRAL_50};
+    }
+
+    .contentBody {
+      position: absolute;
+      width: 95%;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      padding: 1rem 1.5rem 1.2rem 1.5rem; 
+      border-radius: 1rem;
     }
   }
 `;

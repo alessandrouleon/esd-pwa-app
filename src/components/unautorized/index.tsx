@@ -1,9 +1,16 @@
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Typography, Box, Button } from '@mui/material';
 
 import imageErrorUnauthorized from '../../assets/employees/unautorized.jpg';
 import { COLORS } from '../../styles/theme/colors';
+import { useNavigate } from 'react-router-dom';
 
 export function Unauthorized() {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate("/");
+  }
+
   return (
     <Container
       style={{
@@ -35,6 +42,14 @@ export function Unauthorized() {
         >
           Você não tem permissão para acessar esta página
         </Typography>
+        <Box maxWidth={300}>
+          <Button
+            variant='contained'
+            onClick={goBack}
+          >
+            Voltar ao login
+          </Button>
+        </Box>
       </Box>
       <Box
         width="100%"

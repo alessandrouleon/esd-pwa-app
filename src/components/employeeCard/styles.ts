@@ -64,7 +64,7 @@ export const MediaQuery = styled.div`
     }
 
     .contentImage {
-      width: 10rem;
+      width: 9rem;
       height: 10rem;
     }
 
@@ -77,9 +77,9 @@ export const MediaQuery = styled.div`
 
     .contentLegend {
       width:100%;
-      height: 10rem;
+      height: 8rem;
       display: flex;
-      padding-top: 1.5rem;
+      padding-top: 2.5rem;
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
@@ -88,6 +88,8 @@ export const MediaQuery = styled.div`
     .stylesName {
       flex: 1;
       margin-left: 0;
+      font-size: 0.8rem;
+      padding: 0.3rem;
     }
   }
 `;

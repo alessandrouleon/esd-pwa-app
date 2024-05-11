@@ -38,12 +38,25 @@ export function Login() {
     };
 
 
+    const registration = UserTokenHelper.getLocalStorageRegistration();
+
+    const isLoginRoute = location.pathname
+        .toLowerCase()
+        .includes('/');
+
+    if (registration && isLoginRoute) {
+        UserTokenHelper.removeLocalStorageRegistration();
+    }
+
     const onSubmit = () => {
         if (matriculaValue.length === 0) {
             setSpanMessage(true);
         } else {
             const response = StaticEmployees.find(employee => employee.registration === Number(matriculaValue));
-            if (response) {
+
+
+
+            if (response && registration === null) {
                 const itemId = response?.id;
                 UserTokenHelper.setLocalStorageRegistration(String(response?.registration));
                 navigate('/home', {
@@ -82,7 +95,7 @@ export function Login() {
                         Teste ESD
                     </Typography>
 
-                  
+
                     <Typography
                         fontWeight={400}
                         fontSize={15}
@@ -92,7 +105,7 @@ export function Login() {
                     >
                         Informe a matrícula do chip no input
                     </Typography>
-                    <ChipsArray key={1}/>
+                    <ChipsArray key={1} />
                     <Box
                         component="form"
                         mt={2}

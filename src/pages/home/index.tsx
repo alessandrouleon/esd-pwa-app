@@ -211,7 +211,7 @@ export function Home() {
                 />
                 <Body className="bodyStyles">
 
-                    <ContentBody>
+                    <ContentBody className="contentBody">
                         <CustomizedSnackbars
                             open={showSnackbar}
                             onClose={() => setShowSnackbar(false)}
@@ -221,7 +221,7 @@ export function Home() {
                         <CustomizedSteppers children={isSteppers} />
                         <ContentBodyGrid className="contentBodyGrid">
                             <EmployeeCard
-                                imageSrc={`${foundUser?.urlImage === "" ? UserDefault : foundUser?.urlImage} `}
+                                imageSrc={`${foundUser?.urlImage === "" ||foundUser?.urlImage === undefined  ? UserDefault : foundUser?.urlImage} `}
                                 name={`${foundUser?.name}`}
                                 occupation={`${foundUser?.occupation}`}
                                 registration={`${foundUser?.registration}`}
