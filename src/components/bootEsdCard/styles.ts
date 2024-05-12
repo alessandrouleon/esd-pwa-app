@@ -90,9 +90,10 @@ export const MediaQuery = styled.div`
 
     .image {
       display: flex;
-      width: 90%;
-      margin-top: 1rem;
-      height: 75%;
+      width: 70%;
+      margin-top: 0.8rem;
+      height: 80%;
+      margin-left: 1rem;
       align-self: center;
     }
 
