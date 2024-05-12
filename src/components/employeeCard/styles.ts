@@ -52,7 +52,7 @@ export const StyleRegistration = styled.text`
 `;
 
 export const MediaQuery = styled.div`
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 426px) and (max-width: 768px) {
     margin-bottom: 0.8rem;
     .card {
       display: grid;
@@ -92,12 +92,13 @@ export const MediaQuery = styled.div`
     }
   }
 
-  @media screen and (min-width: 390px) and (max-width: 767px) {
+  @media screen and (min-width: 390px) and (max-width: 425px) {
     margin-bottom: 0.8rem;
 
     .card {
       display: flex;
       flex: 1;
+      /* width:62%; */
       height: 4rem;
       grid-template-columns: 5rem 1fr;
       grid-row-gap: 1em;

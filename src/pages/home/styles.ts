@@ -50,7 +50,7 @@ export const CardWrapper = styled.div`
 `;
 
 export const MediaQuery = styled.div`
-  @media screen and (max-width: 768px) {
+  @media screen  and (min-width: 426px) and (max-width: 768px) {
     .contentBodyGrid {
       display: grid;
       grid-template-columns: 1fr;
@@ -79,7 +79,15 @@ export const MediaQuery = styled.div`
     }
   }
 
-  @media screen and (max-width: 390px) {
+  @media screen  and (min-width: 390px) and (max-width: 425px) {
+    .contentBodyGrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      justify-content: space-between;
+      align-content: center;
+    }
+    
     .card {
       grid-column: span 2;
       display: grid;

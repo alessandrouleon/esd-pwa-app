@@ -57,7 +57,7 @@ export const MoldImage = styled.div`
 
 export const MediaQuery = styled.div`
 
-@media screen  and (max-width: 768px) {
+@media screen  and (min-width: 426px) and (max-width: 768px) {
     margin-bottom: 0.2rem;
 
     .image {
@@ -82,7 +82,7 @@ export const MediaQuery = styled.div`
     }
   }
 
-@media screen and (min-width: 390px) and (max-width: 767px) {
+@media screen and (min-width: 390px) and (max-width: 425px) {
     margin-bottom: 0.2rem;
   
       .card {

@@ -46,14 +46,18 @@ export const ButtonArrowBack = styled.button`
 
 export const MediaQuery = styled.div`
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 426px) and (max-width: 768px) {
     .classSystemName {
       font-size: 1rem;
     }
   }
 
-  @media screen and (min-width: 390px) and (max-width: 767px) {
-   height: 3.5rem;
+  @media screen and (min-width: 390px) and (max-width: 425px) {
+    .classSystemName {
+      font-size: 0.9rem;
+      height: 1rem;
+    }
+  
   }
 
 `;
