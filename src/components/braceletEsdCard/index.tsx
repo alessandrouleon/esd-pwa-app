@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { ContainerButton, Image,  MoldImage,  StyledButton } from './styles';
+import { ContainerButton, Image,  MediaQuery,  MoldImage,  StyledButton } from './styles';
 
 import { COLORS } from '../../styles/theme/colors';
 import { Typography } from '@mui/material';
@@ -29,8 +29,11 @@ export function BraceletEsdCard({ imageSrc, titleButton, buttonDisabled, onStepp
         }
     }
     return (
+        <MediaQuery>
         <Box>
-            <Card sx={{
+            <Card 
+            className="card"
+            sx={{
                 minWidth: 240,
                 // maxWidth: 383,
                 backgroundColor: COLORS.NEUTRAL_200,
@@ -41,13 +44,17 @@ export function BraceletEsdCard({ imageSrc, titleButton, buttonDisabled, onStepp
                     display: 'flex',
                     justifyContent: 'center'
                 }}>
-                    <MoldImage>
-                    <Image src={imageSrc} alt='Boot image' />
+                    <MoldImage className="moldImage">
+                    <Image 
+                    className="image"
+                    src={imageSrc} alt='Boot image' />
                     </MoldImage>
                    
                 </CardContent>
 
-                <ContainerButton>
+                <ContainerButton 
+                className="containerButton"
+                >
                     {titleButton.map((title, index) => (
                         <StyledButton
                         variant="contained" 
@@ -68,5 +75,6 @@ export function BraceletEsdCard({ imageSrc, titleButton, buttonDisabled, onStepp
                 </ContainerButton>
             </Card>
         </Box>
+        </MediaQuery>
     );
 }

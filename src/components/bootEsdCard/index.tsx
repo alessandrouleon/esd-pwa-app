@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { ContainerButton, Image, MoldImage, StyledButton } from './styles';
+import { ContainerButton, Image, MediaQuery, MoldImage, StyledButton } from './styles';
 
 import { COLORS } from '../../styles/theme/colors';
 import { Typography } from '@mui/material';
@@ -30,40 +30,56 @@ export function BootEsdCard({ imageSrc, titleButton, buttonDisabled, onStepperCl
     }
 
     return (
-        <Box>
-            <Card sx={{
-                minWidth: 240,
-                // maxWidth: 383,
-                backgroundColor: COLORS.NEUTRAL_200,
-                borderRadius: 2,
-                mr: 0,
-            }}>
-                <CardContent sx={{
-                    display: 'flex',
-                    justifyContent: 'center'
-                }}>
-                    <MoldImage>
-                        <Image src={imageSrc} alt='Boot image' />
-                    </MoldImage>
-                </CardContent>
+        <MediaQuery>
+            <Box>
+                <Card
+                    className="card"
+                    sx={{
+                        minWidth: 240,
+                        // maxWidth: 383,
+                        backgroundColor: COLORS.NEUTRAL_200,
+                        borderRadius: 2,
+                        mr: 0,
+                    }}>
+                    <CardContent
+                        className="cardContent"
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}>
+                        <MoldImage className="moldImage">
+                            <Image
+                            className="image"
+                            src={imageSrc} alt='Boot image' />
+                        </MoldImage>
+                    </CardContent>
 
-                <ContainerButton>
-                    {titleButton.map((title, index) => (
-                        <StyledButton
-                            variant="contained" sx={{
-                                borderRadius: 10,
-                                m: 1,
-                            }}
-                            key={index}
-                            style={{ backgroundColor: getButtonColor(title) }}
-                            onClick={() => onStepperClick(index)}
-                            disabled={buttonDisabled[index]}
-                        >
-                            <Typography style={{ color: COLORS.BACKGROUND_BASE }}>{title}</Typography>
-                        </StyledButton>
-                    ))}
-                </ContainerButton>
-            </Card>
-        </Box>
+                    <ContainerButton className="containerButton">
+                        {titleButton.map((title, index) => (
+                            <StyledButton
+                                className="styledButton"
+                                variant="contained" sx={{
+                                    borderRadius: 10,
+                                    m: 1,
+                                }}
+                                key={index}
+                                style={{ backgroundColor: getButtonColor(title) }}
+                                onClick={() => onStepperClick(index)}
+                                disabled={buttonDisabled[index]}
+                            >
+                                <Typography
+                                className="titleButton"
+                                    style={{
+                                        color: COLORS.BACKGROUND_BASE
+                                    }}
+                                >
+                                    {title}
+                                </Typography>
+                            </StyledButton>
+                        ))}
+                    </ContainerButton>
+                </Card>
+            </Box>
+        </MediaQuery>
     );
 }

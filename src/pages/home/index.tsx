@@ -220,35 +220,41 @@ export function Home() {
                         />
                         <CustomizedSteppers children={isSteppers} />
                         <ContentBodyGrid className="contentBodyGrid">
-                            <EmployeeCard
-                                imageSrc={`${foundUser?.urlImage === "" ||foundUser?.urlImage === undefined  ? UserDefault : foundUser?.urlImage} `}
-                                name={`${foundUser?.name}`}
-                                occupation={`${foundUser?.occupation}`}
-                                registration={`${foundUser?.registration}`}
-                            />
-                            <TwoColumnSpan>
-                                <BootEsdCard
-                                    imageSrc={
-                                        isStatusBoot === 0 ? `${bootModel}`
-                                            : isStatusBoot === 1 ? `${BootOK}`
-                                                : isStatusBoot === 2 ? `${BootNOK}`
-                                                    : `${BootNA}`}
-                                    titleButton={titleButton}
-                                    onStepperClick={handleStepperBootClick}
-                                    buttonDisabled={buttonBootDisabled}
+                            <div>
+                                <EmployeeCard
+                                    imageSrc={`${foundUser?.urlImage === "" || foundUser?.urlImage === undefined ? UserDefault : foundUser?.urlImage} `}
+                                    name={`${foundUser?.name}`}
+                                    occupation={`${foundUser?.occupation}`}
+                                    registration={`${foundUser?.registration}`}
                                 />
-                                <BraceletEsdCard
-                                    imageSrc={
-                                        isStatusBracelet === 0 ? `${BraceletModel}`
-                                            : isStatusBracelet === 1 ? `${BraceletOK}`
-                                                : isStatusBracelet === 2 ? `${BraceletNOK}`
-                                                    : `${BraceletNA}`
-                                    }
-                                    titleButton={titleButton}
-                                    onStepperClick={handleStepperBraceletClick}
-                                    buttonDisabled={buttonBraceletDisabled}
-                                />
-                                <CardWrapper>
+                            </div>
+                            <div>
+                                <TwoColumnSpan 
+                                className="card"
+                                >
+                                    <BootEsdCard
+                                        imageSrc={
+                                            isStatusBoot === 0 ? `${bootModel}`
+                                                : isStatusBoot === 1 ? `${BootOK}`
+                                                    : isStatusBoot === 2 ? `${BootNOK}`
+                                                        : `${BootNA}`}
+                                        titleButton={titleButton}
+                                        onStepperClick={handleStepperBootClick}
+                                        buttonDisabled={buttonBootDisabled}
+                                    />
+                                    <BraceletEsdCard
+                                        imageSrc={
+                                            isStatusBracelet === 0 ? `${BraceletModel}`
+                                                : isStatusBracelet === 1 ? `${BraceletOK}`
+                                                    : isStatusBracelet === 2 ? `${BraceletNOK}`
+                                                        : `${BraceletNA}`
+                                        }
+                                        titleButton={titleButton}
+                                        onStepperClick={handleStepperBraceletClick}
+                                        buttonDisabled={buttonBraceletDisabled}
+                                    />
+                                </TwoColumnSpan>
+                                <CardWrapper className="cardWrapper">
                                     <Button
                                         variant='contained'
                                         fullWidth
@@ -264,7 +270,7 @@ export function Home() {
                                         Enviar Teste
                                     </Button>
                                 </CardWrapper>
-                            </TwoColumnSpan>
+                            </div>
                         </ContentBodyGrid>
                     </ContentBody>
 

@@ -29,7 +29,8 @@ export const ContentBody = styled.div`
 
 export const ContentBodyGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  /* grid-template-columns: repeat(2, minmax(100px, 1fr)); */
+  grid-template-columns: 15rem 1fr;
   align-items: center;
   justify-content: space-between;
   align-content: center;
@@ -46,7 +47,6 @@ export const CardWrapper = styled.div`
   display: flex;
   flex: 1;
   margin-top: 1rem;
-  grid-column: span 2; /* Ocupa as duas colunas */
 `;
 
 export const MediaQuery = styled.div`
@@ -74,7 +74,33 @@ export const MediaQuery = styled.div`
       align-items: center;
       justify-content: center;
       align-content: center;
-      padding: 1rem 1.5rem 1.2rem 1.5rem; 
+      padding: 1rem 1.5rem 1.2rem 1.5rem;
+      border-radius: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 390px) {
+    .card {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .cardWrapper {
+      display: flex;
+      flex: 1;
+      margin-top: 0.5rem;
+      margin: 0.3rem 0;
+    }
+
+    .contentBody {
+      position: absolute;
+      width: 95%;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      top: 1rem;
+      bottom: 0;
       border-radius: 1rem;
     }
   }

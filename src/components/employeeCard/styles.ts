@@ -3,8 +3,7 @@ import { COLORS } from "../../styles/theme/colors";
 
 export const Image = styled.img`
   width: 10rem;
-  height: 12rem;
-  max-height: 13rem;
+  height: 11.5rem;
   align-self: center;
   margin-top: 1rem;
 `;
@@ -76,7 +75,7 @@ export const MediaQuery = styled.div`
     }
 
     .contentLegend {
-      width:100%;
+      width: 100%;
       height: 8rem;
       display: flex;
       padding-top: 2.5rem;
@@ -88,8 +87,51 @@ export const MediaQuery = styled.div`
     .stylesName {
       flex: 1;
       margin-left: 0;
-      font-size: 0.8rem;
+      font-size: 1rem;
       padding: 0.3rem;
+    }
+  }
+
+  @media screen and (min-width: 390px) and (max-width: 767px) {
+    margin-bottom: 0.8rem;
+
+    .card {
+      display: flex;
+      flex: 1;
+      height: 4rem;
+      grid-template-columns: 5rem 1fr;
+      grid-row-gap: 1em;
+      margin-right: 0;
+    }
+
+    .contentImage {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+
+    .image {
+      flex: 1;
+      height: 3.5rem;
+      align-self: center;
+      margin-bottom: 2rem;
+    }
+
+    .contentLegend {
+      width: 100%;
+      height: 4rem;
+      display: flex;
+      padding-top: 0.5rem;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .stylesName {
+      flex: 1;
+      margin-left: 0;
+      font-size: 0.7rem;
+      margin-top: 0;
+      padding: 0.125rem;
     }
   }
 `;

@@ -53,3 +53,61 @@ export const MoldImage = styled.div`
   background-color: ${COLORS.NEUTRAL_EX100};
   box-shadow: ${COLORS.NEUTRAL_EX200};
 `;
+
+export const MediaQuery = styled.div`
+@media screen  and (max-width: 768px) {
+    margin-bottom: 0.2rem;
+
+    .image {
+      display: flex;
+      width: 90%;
+      margin-top: 1rem;
+      height: 75%;
+      align-self: center;
+    }
+
+    .moldImage {
+      width: 15rem;
+      height: 12rem;
+      align-self: center;
+      margin: 1rem 0;
+    }
+    .containerButton {
+      display: grid;
+      position: relative;
+      bottom: 0.5rem;
+      margin: 0 2.5rem;
+    }
+  }
+
+  @media screen and (min-width: 390px) and (max-width: 767px) {
+    margin-bottom: 0.2rem;
+    .card {
+      display: grid;
+      grid-template-columns: auto;
+      max-height: 14rem;
+    }
+
+    .image {
+      display: flex;
+      width: 90%;
+      margin-top: 1rem;
+      height: 75%;
+      align-self: center;
+    }
+
+    .moldImage {
+      width: 15rem;
+      height: 8rem;
+      align-self: center;
+      margin: 1rem 0;
+    }
+
+    .containerButton {
+      display: grid;
+      position: relative;
+      bottom: 2rem;
+      margin: 0 1.5rem;
+    }
+  }
+`;

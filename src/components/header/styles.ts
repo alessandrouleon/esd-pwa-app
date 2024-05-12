@@ -52,4 +52,8 @@ export const MediaQuery = styled.div`
     }
   }
 
+  @media screen and (min-width: 390px) and (max-width: 767px) {
+   height: 3.5rem;
+  }
+
 `;
