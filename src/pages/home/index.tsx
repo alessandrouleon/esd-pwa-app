@@ -22,7 +22,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { COLORS } from '../../styles/theme/colors';
 import { StaticEmployees, UserProps } from '../../utils/staticEmployees';
 import { CustomizedSnackbars } from '../../components/Alert';
-import { UserTokenHelper } from '../../services/history/history';
+import { LocalStorageToken } from '../../services/Storage/token';
 
 export function Home() {
     const titleButton = ["OK", "NOK", "N/A"];
@@ -176,7 +176,7 @@ export function Home() {
 
             }, 2000);
             setShowSnackbar(true);
-            UserTokenHelper.removeLocalStorageRegistration();
+            LocalStorageToken.removeLocalStorageRegistration();
             console.log("USER::", saveUser);
         }
 
@@ -184,7 +184,7 @@ export function Home() {
 
 
     const goBack = () => {
-        UserTokenHelper.removeLocalStorageRegistration();
+        LocalStorageToken.removeLocalStorageRegistration();
     }
 
 

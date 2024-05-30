@@ -3,11 +3,11 @@ import { Login } from "../pages/login";
 import { Unauthorized } from "../components/unautorized";
 
 import { Home } from "../pages/home";
-import { UserTokenHelper } from "../services/history/history";
+import { LocalStorageToken } from "../services/Storage/token";
 
 export function AppRoutes() {
 
-    const registration = UserTokenHelper.getLocalStorageRegistration();
+    const registration = LocalStorageToken.getLocalStorageRegistration();
     const isAuthenticated = registration !== null;
 
     const isHomeRoute = location.pathname

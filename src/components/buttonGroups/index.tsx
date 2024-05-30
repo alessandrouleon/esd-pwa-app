@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 import { Container, Numbers, StyledOutlinedButton } from './styles';
 import { Button, Stack } from '@mui/material';
@@ -8,7 +7,8 @@ type Props = {
   keyboardNumbers: number[];
   buttonText: ReactNode;
   onNumberClick: (number: number) => void;
-  onAcessClick: () => void;
+  // onAcessClick: () => void;
+  onAcessClick: (event: React.MouseEvent<HTMLButtonElement>) => void; 
 }
 
 export function ButtonGroups({ keyboardNumbers, buttonText, onNumberClick, onAcessClick}: Props) {
@@ -33,3 +33,4 @@ export function ButtonGroups({ keyboardNumbers, buttonText, onNumberClick, onAce
     </Container>
   );
 }
+
