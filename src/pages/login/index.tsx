@@ -73,11 +73,10 @@ export function Login() {
 
           LocalStorageToken.setLocalStorageToken(response.data.token);
           LocalStorageToken.setLocalStorageName(username);
-          const registration: string = response.data.registration;
           navigate("/home", {
-            state: { registration },
-          });
-        }
+            state: { username },
+          });          
+        } 
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
@@ -85,6 +84,12 @@ export function Login() {
         setAlert({
           open: true,
           message: message || "Internal server error",
+          type: "error",
+        });
+      } else {
+        setAlert({
+          open: true,
+          message: "Erro de rede ou servidor inoperante",
           type: "error",
         });
       }

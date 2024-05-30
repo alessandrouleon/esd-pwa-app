@@ -1,6 +1,7 @@
 import api from "../api";
 
-export const login = (registration: string) => {
-    return api.post("/auth/loginEmployee", {registration});
-}
+export const login = async (registration: string) => {
+    const response = await api.post("/auth/loginEmployee", { registration });
+    return response;
+};
 
