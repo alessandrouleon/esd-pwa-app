@@ -26,13 +26,23 @@ import { ChipsArray } from "../../components/chip";
 import { login } from "../../services/login";
 import axios from "axios";
 
+const initialStateAlert = {
+  open: false,
+  message: "",
+  type: "error" as "error" | "success",
+};
+
 export function Login() {
-  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [error, setError] = useState(false);
   const [isSwitchChecked, setIsSwitchChecked] = useState(true);
   const [registrationValue, setRegistrationValue] = useState("");
-  const [spanMessage, setSpanMessage] = useState(false);
-  const keyboardNumbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-  //const [alert, setAlert] = useState(initialStateAlert);
+  const keyboardNumbers: number[] = [];
+  const [alert, setAlert] = useState(initialStateAlert);
+
+  for (let i = 1; i <= 9; i++) {
+    keyboardNumbers.push(i);
+  }
+  keyboardNumbers.push(0);
 
   const navigate = useNavigate();
 
@@ -42,67 +52,48 @@ export function Login() {
 
   const handleNumberClick = (number: number) => {
     setRegistrationValue((prevValue) => prevValue + number.toString());
-    setSpanMessage(false);
   };
 
   const handleClearTextField = () => {
     setRegistrationValue("");
   };
 
-  // const registration = UserTokenHelper.getLocalStorageRegistration();
-
-  // const isLoginRoute = location.pathname
-  //     .toLowerCase()
-  //     .includes('/');
-
-  // if (registration && isLoginRoute) {
-  //     UserTokenHelper.removeLocalStorageRegistration();
-  // }
-
   const onSubmit = async () => {
     try {
-      console.log("matricula:", registrationValue);
+      if (!registrationValue) {
+        setError(true);
+      } else {
+        setError(false);
+        const response = await login(registrationValue);
+        if (response.data.token !== 0) {
+          const token = response.data.token;
+          const [, payload] = token.split(".");
+          const decodedPayload = JSON.parse(atob(payload));
+          const username = decodedPayload.registration;
 
-      const response = await login(registrationValue);
-      if (response.data.token !== 0) {
-        const token = response.data.token;
-        const [, payload] = token.split(".");
-        const decodedPayload = JSON.parse(atob(payload));
-        const username = decodedPayload.registration;
-
-        console.log(username);
-
-        LocalStorageToken.setLocalStorageToken(response.data.token);
-        LocalStorageToken.setLocalStorageName(username);
-        const registration: string = response.data.registration;
-        navigate("/home", {
-          state: { registration },
-        });
+          LocalStorageToken.setLocalStorageToken(response.data.token);
+          LocalStorageToken.setLocalStorageName(username);
+          const registration: string = response.data.registration;
+          navigate("/home", {
+            state: { registration },
+          });
+        }
       }
-      // setAlert({
-      //   open: true,
-      //   message: "Falha ao realizar login.",
-      //   type: "error",
-      // });
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-      //  const { message } = error.response.data;
-
-        // setAlert({
-        //   open: true,
-        //   message: message || "Internal server error",
-        //   type: "error",
-        // });
-        setShowSnackbar(true);
+        const { message } = error.response.data;
+        setAlert({
+          open: true,
+          message: message || "Internal server error",
+          type: "error",
+        });
       }
     }
   };
 
   useEffect(() => {
-    if (registrationValue.length === 0) {
-      setSpanMessage(true);
-    } else {
-      setSpanMessage(false);
+    if (registrationValue.length > 0) {
+      setError(false);
     }
   }, [registrationValue]);
 
@@ -112,12 +103,12 @@ export function Login() {
       <Body>
         <ContentBody>
           <CustomizedSnackbars
-            open={showSnackbar}
-            onClose={() => setShowSnackbar(false)}
-            message="Colaborador não encontrado!"
-            bgColorsSnack="error"
+            open={alert.open}
+            onClose={() => setAlert({ ...alert, open: false })}
+            message={alert.message}
+            bgColorsSnack={alert.type}
           />
-          {/* <AlertContainer setAlert={setAlert} alert={alert} /> */}
+
           <Typography
             variant="h4"
             fontWeight={500}
@@ -150,16 +141,12 @@ export function Login() {
                   disabled={isSwitchChecked}
                   onChange={(e) => {
                     setRegistrationValue(e.target.value);
-                    if (e.target.value.trim() === "") {
-                      setSpanMessage(true);
-                    } else {
-                      setSpanMessage(false);
+                    if (e.target.value) {
+                      setError(false);
                     }
                   }}
-                  error={spanMessage}
-                  helperText={spanMessage ? "Campo obrigatório" : ""}
-                  style={{ marginBottom: "0.5rem" }}
-                  InputLabelProps={{ shrink: true }}
+                  error={error}
+                  helperText={error ? "Preencha o campo vazio" : ""}
                   variant="outlined"
                 />
                 {registrationValue && (
