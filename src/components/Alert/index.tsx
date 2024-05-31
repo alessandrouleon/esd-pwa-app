@@ -1,6 +1,13 @@
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
+export const initialStateAlert = {
+  open: false,
+  message: "",
+  type: "error" as "error" | "success",
+};
+
+
 interface CustomizedSnackbarProps {
   open: boolean;
   onClose: () => void;

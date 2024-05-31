@@ -21,7 +21,7 @@ export const ContentBody = styled.div`
   align-items: center;
   justify-content: center;
   align-content: center;
-  height: 70%;
-  padding-top: 8rem;
+  height: 100%;
+  padding-top: 2rem;
 `;
 

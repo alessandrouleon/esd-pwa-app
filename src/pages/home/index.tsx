@@ -28,11 +28,13 @@ import BraceletNA from "../../assets/braceletNA.png";
 import UserDefault from "../../assets/employees/userDefault.png";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { COLORS } from "../../styles/theme/colors";
-import { CustomizedSnackbars } from "../../components/Alert";
+import { CustomizedSnackbars, initialStateAlert } from "../../components/Alert";
 import { LocalStorageToken } from "../../services/Storage/token";
 import { getSingleRegistration } from "../../services/employee";
 import { TesteEsdProps, createTesteEsd } from "../../services/testeEsd";
 import { EmployeeProps } from "./interfaces";
+import axios from "axios";
+import { Loader } from "../../components/loader";
 
 export function Home() {
   const titleButton = ["OK", "NOK", "N/A"];
@@ -48,7 +50,8 @@ export function Home() {
   const [foundUser, setFoundUser] = useState<EmployeeProps | undefined>(
     undefined
   );
-  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [loaderEmployee, setLoaderEmployee] = useState(true);
+  const [alert, setAlert] = useState(initialStateAlert);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -153,16 +156,24 @@ export function Home() {
   };
 
   const handleFindUser = async () => {
-    const employee = await getSingleRegistration(employeeId);
-    return employee.data;
+    try {
+      const employee = await getSingleRegistration(employeeId);
+      return employee.data;
+    } catch (error) {
+      setAlert({
+        open: true,
+        message: "Falha ao carregar os dados do usuário",
+        type: "error",
+      });
+    }
   };
-
   useEffect(() => {
     const fetchUser = async () => {
       const employee = await handleFindUser();
       setFoundUser(employee);
+      setLoaderEmployee(false);
     };
-
+    setLoaderEmployee(true);
     fetchUser();
   }, []);
 
@@ -188,10 +199,26 @@ export function Home() {
         setTimeout(() => {
           navigate("/");
         }, 2000);
-        setShowSnackbar(true);
+        setAlert({
+          open: true,
+          message: "Teste realizado com sucesso",
+          type: "success",
+        });
       } catch (error) {
-        console.error("Erro ao realizar teste:", error);
-        setShowSnackbar(false);
+        if (axios.isAxiosError(error) && error.response) {
+          const { message } = error.response.data;
+          setAlert({
+            open: true,
+            message: message || "Internal server error",
+            type: "error",
+          });
+        } else {
+          setAlert({
+            open: true,
+            message: "Erro de rede ou servidor inoperante",
+            type: "error",
+          });
+        }
       }
     }
   };
@@ -222,80 +249,84 @@ export function Home() {
           systemName="Teste de EPIs ESD"
           icon={<HelpOutlineIcon fontSize="large" />}
         />
-        <Body className="bodyStyles">
-          <ContentBody className="contentBody">
-            <CustomizedSnackbars
-              open={showSnackbar}
-              onClose={() => setShowSnackbar(false)}
-              message="Teste realizado com sucesso!"
-              bgColorsSnack="success"
-            />
-            <CustomizedSteppers children={isSteppers} />
-            <ContentBodyGrid className="contentBodyGrid">
-              <div>
-                <EmployeeCard
-                  imageSrc={`${
-                    foundUser?.imageId === "" ||
-                    foundUser?.imageId === undefined
-                      ? UserDefault
-                      : foundUser?.imageId
-                  } `}
-                  name={`${foundUser?.name}`}
-                  occupation={`${foundUser?.occupation}`}
-                  registration={`${foundUser?.registration}`}
-                />
-              </div>
-              <div>
-                <TwoColumnSpan className="card">
-                  <BootEsdCard
-                    imageSrc={
-                      isStatusBoot === 0
-                        ? `${bootModel}`
-                        : isStatusBoot === 1
-                        ? `${BootOK}`
-                        : isStatusBoot === 2
-                        ? `${BootNOK}`
-                        : `${BootNA}`
-                    }
-                    titleButton={titleButton}
-                    onStepperClick={handleStepperBootClick}
-                    buttonDisabled={buttonBootDisabled}
+        {loaderEmployee ? (
+          <Loader />
+        ) : (
+          <Body className="bodyStyles">
+            <ContentBody className="contentBody">
+              <CustomizedSnackbars
+                open={alert.open}
+                onClose={() => setAlert({ ...alert, open: false })}
+                message={alert.message}
+                bgColorsSnack={alert.type}
+              />
+              <CustomizedSteppers children={isSteppers} />
+              <ContentBodyGrid className="contentBodyGrid">
+                <div>
+                  <EmployeeCard
+                    imageSrc={`${
+                      foundUser?.imageId === "" ||
+                      foundUser?.imageId === undefined
+                        ? UserDefault
+                        : foundUser?.imageId
+                    } `}
+                    name={`${foundUser?.name}`}
+                    occupation={`${foundUser?.occupation}`}
+                    registration={`${foundUser?.registration}`}
                   />
-                  <BraceletEsdCard
-                    imageSrc={
-                      isStatusBracelet === 0
-                        ? `${BraceletModel}`
-                        : isStatusBracelet === 1
-                        ? `${BraceletOK}`
-                        : isStatusBracelet === 2
-                        ? `${BraceletNOK}`
-                        : `${BraceletNA}`
-                    }
-                    titleButton={titleButton}
-                    onStepperClick={handleStepperBraceletClick}
-                    buttonDisabled={buttonBraceletDisabled}
-                  />
-                </TwoColumnSpan>
-                <CardWrapper className="cardWrapper">
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    disabled={isSteppers !== 2}
-                    sx={{
-                      borderRadius: 3,
-                      p: 1,
-                      fontSize: 18,
-                    }}
-                    endIcon={<SendIcon sx={{ ml: 1 }} />}
-                    onClick={onSubmit}
-                  >
-                    Enviar Teste
-                  </Button>
-                </CardWrapper>
-              </div>
-            </ContentBodyGrid>
-          </ContentBody>
-        </Body>
+                </div>
+                <div>
+                  <TwoColumnSpan className="card">
+                    <BootEsdCard
+                      imageSrc={
+                        isStatusBoot === 0
+                          ? `${bootModel}`
+                          : isStatusBoot === 1
+                          ? `${BootOK}`
+                          : isStatusBoot === 2
+                          ? `${BootNOK}`
+                          : `${BootNA}`
+                      }
+                      titleButton={titleButton}
+                      onStepperClick={handleStepperBootClick}
+                      buttonDisabled={buttonBootDisabled}
+                    />
+                    <BraceletEsdCard
+                      imageSrc={
+                        isStatusBracelet === 0
+                          ? `${BraceletModel}`
+                          : isStatusBracelet === 1
+                          ? `${BraceletOK}`
+                          : isStatusBracelet === 2
+                          ? `${BraceletNOK}`
+                          : `${BraceletNA}`
+                      }
+                      titleButton={titleButton}
+                      onStepperClick={handleStepperBraceletClick}
+                      buttonDisabled={buttonBraceletDisabled}
+                    />
+                  </TwoColumnSpan>
+                  <CardWrapper className="cardWrapper">
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      disabled={isSteppers !== 2}
+                      sx={{
+                        borderRadius: 3,
+                        p: 1,
+                        fontSize: 18,
+                      }}
+                      endIcon={<SendIcon sx={{ ml: 1 }} />}
+                      onClick={onSubmit}
+                    >
+                      Enviar Teste
+                    </Button>
+                  </CardWrapper>
+                </div>
+              </ContentBodyGrid>
+            </ContentBody>
+          </Body>
+        )}
       </Container>
     </MediaQuery>
   );

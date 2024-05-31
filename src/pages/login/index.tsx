@@ -20,17 +20,11 @@ import Switch from "@mui/material/Switch";
 import { useEffect, useState } from "react";
 import { CleaningServicesOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { CustomizedSnackbars } from "../../components/Alert";
+import { CustomizedSnackbars, initialStateAlert } from "../../components/Alert";
 import { LocalStorageToken } from "../../services/Storage/token";
-import { ChipsArray } from "../../components/chip";
+// import { ChipsArray } from "../../components/chip";
 import { login } from "../../services/login";
 import axios from "axios";
-
-const initialStateAlert = {
-  open: false,
-  message: "",
-  type: "error" as "error" | "success",
-};
 
 export function Login() {
   const [error, setError] = useState(false);
@@ -144,7 +138,7 @@ export function Login() {
           >
             Informe a matrícula do chip no input
           </Typography>
-          <ChipsArray key={1} />
+          {/* <ChipsArray key={1} /> */}
           <Box component="form" mt={2} mb={2} autoComplete="off">
             <div>
               <div style={{ position: "relative" }}>
