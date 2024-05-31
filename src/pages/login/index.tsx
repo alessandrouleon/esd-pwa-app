@@ -58,6 +58,16 @@ export function Login() {
     setRegistrationValue("");
   };
 
+  const existToken = LocalStorageToken.getLocalStorageToken();
+  const existRegistration = LocalStorageToken.getLocalStorageRegistration();
+
+  const isLoginRoute = location.pathname.toLowerCase().includes("/");
+
+  if (existToken || (existRegistration && isLoginRoute)) {
+    LocalStorageToken.removeLocalStorageToken();
+    LocalStorageToken.removeLocalStorageRegistration();
+  }
+
   const onSubmit = async () => {
     try {
       if (!registrationValue) {
@@ -69,14 +79,15 @@ export function Login() {
           const token = response.data.token;
           const [, payload] = token.split(".");
           const decodedPayload = JSON.parse(atob(payload));
-          const username = decodedPayload.registration;
+          const registration = decodedPayload.registration;
+          const employeeId = decodedPayload.sub;
 
           LocalStorageToken.setLocalStorageToken(response.data.token);
-          LocalStorageToken.setLocalStorageName(username);
+          LocalStorageToken.setLocalStorageName(registration);
           navigate("/home", {
-            state: { username },
-          });          
-        } 
+            state: { employeeId },
+          });
+        }
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
